@@ -33,9 +33,9 @@ scores = 0
 
 def generateQuestion(root, questionNumber):
     global btn0, btn1, btn2, btn3, questionText, scoresText, scores
-    scoresText = Label(root, text='Ваши очки: '+str(scores))
+    scoresText = Label(root, text='Ваши очки: '+str(scores), font=("Arial Bold", 14))
     scoresText.grid(row=0, column=6, padx=30, pady=10)
-    questionText = Label(root, text=questionAll[questionNumber])
+    questionText = Label(root, text=str(questionNumber+1)+') '+questionAll[questionNumber], font=("Arial Bold", 16))
     questionText.grid(row=1, column=0, columnspan=6, padx=20, pady=20)
     def btn1Clicked():
         checkAnswer(questionNumber, 1)
@@ -46,19 +46,19 @@ def generateQuestion(root, questionNumber):
     def btn4Clicked():
         checkAnswer(questionNumber, 4)
 
-    btn0 = Button(root, text=answerTextAll[questionNumber][0])
+    btn0 = Button(root, text=answerTextAll[questionNumber][0], font=("Arial Bold", 14), bg="white", width=15)
     btn0.grid(row=2, padx=10, pady=10)
     btn0.config(command=btn1Clicked)
 
-    btn1 = Button(root, text=answerTextAll[questionNumber][1])
+    btn1 = Button(root, text=answerTextAll[questionNumber][1], font=("Arial Bold", 14), bg="white", width=15)
     btn1.grid(row=3, padx=10, pady=10)
     btn1.config(command=btn2Clicked)
 
-    btn2 = Button(root, text=answerTextAll[questionNumber][2])
+    btn2 = Button(root, text=answerTextAll[questionNumber][2], font=("Arial Bold", 14), bg="white", width=15)
     btn2.grid(row=4, padx=10, pady=10)
     btn2.config(command=btn3Clicked)
 
-    btn3 = Button(root, text=answerTextAll[questionNumber][3])
+    btn3 = Button(root, text=answerTextAll[questionNumber][3], font=("Arial Bold", 14), bg="white", width=15)
     btn3.grid(row=5, padx=10, pady=10)
     btn3.config(command=btn4Clicked)
 
