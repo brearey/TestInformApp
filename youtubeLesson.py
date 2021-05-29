@@ -70,9 +70,9 @@ def checkAnswer(questionNumber, i):
         scores = scores + 1
         scoresText = Label(root, text='Ваши очки: ' + str(scores))
         scoresText.grid(row=0, column=6, padx=30, pady=10)
-        if (messagebox.showinfo('Test', 'Test')): destroyAll()
+        if (messagebox.showinfo('Информация', 'Ваш ответ верный. Так держать!')): destroyAll()
     else:
-        if messagebox.showerror('Test', 'Test'): destroyAll()
+        if messagebox.showerror('Увы', 'Вы ошиблись. В следующий раз повезет.'): destroyAll()
 
 #for i, word in enumerate(questionAll):
 #    generateQuestion(root, i)
