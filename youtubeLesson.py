@@ -30,7 +30,6 @@ btn3 = Button()
 
 #Scores
 scores = 0
-#root.geometry('400x400')
 
 def generateQuestion(root, questionNumber):
     global btn0, btn1, btn2, btn3, questionText, scoresText, scores
@@ -66,16 +65,11 @@ def generateQuestion(root, questionNumber):
 def checkAnswer(questionNumber, i):
     global scores, scoresText, root, stepNumber
     if (i == answerAll[questionNumber]):
-        #messagebox.showinfo('Информация', 'Правильно!')
         scores = scores + 1
-        scoresText = Label(root, text='Ваши очки: ' + str(scores))
-        scoresText.grid(row=0, column=6, padx=30, pady=10)
         if (messagebox.showinfo('Информация', 'Ваш ответ верный. Так держать!')): destroyAll()
     else:
         if messagebox.showerror('Увы', 'Вы ошиблись. В следующий раз повезет.'): destroyAll()
 
-#for i, word in enumerate(questionAll):
-#    generateQuestion(root, i)
 generateQuestion(root, 0)
 stepNumber = 0
 def destroyAll():
