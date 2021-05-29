@@ -20,35 +20,24 @@ answerAll = [
 
 root = Tk()
 root.title('Тест по информатике')
+#Widgets
+questionText = Label()
+scoresText = Label()
+btn0 = Button()
+btn1 = Button()
+btn2 = Button()
+btn3 = Button()
+
+#Scores
+scores = 0
 #root.geometry('400x400')
 
-def que_one():
-    question = Label(root, text='Висит груша и её нельзя скушать?')
-    answer = Entry()
-    btn = Button(root, text='Ответить', command=lambda: game1())
-    question.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
-    answer.grid(row=1, column=0, columnspan=4, padx=10, pady=10)
-    btn.grid(row=2, column=1, columnspan=2, padx=10, pady=10)
-    def game1():
-        if answer.get() == 'Лампочка':
-            que_two()
-        else:
-            #que_one()
-            messagebox.showerror('Ошибка', 'Попробуй еще раз')
-
-
-def que_two():
-    question = Label(root, text='Зимой и летом одним цветом?')
-    answer = Entry()
-    btn = Button(root, text='Ответить')
-    question.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
-    answer.grid(row=1, column=0, columnspan=4, padx=10, pady=10)
-    btn.grid(row=2, column=1, columnspan=2, padx=10, pady=10)
-
 def generateQuestion(root, questionNumber):
+    global btn0, btn1, btn2, btn3, questionText, scoresText, scores
+    scoresText = Label(root, text='Ваши очки: '+str(scores))
+    scoresText.grid(row=0, column=6, padx=30, pady=10)
     questionText = Label(root, text=questionAll[questionNumber])
-    questionText.grid(row=0, column=0, columnspan=6, padx=20, pady=20)
-
+    questionText.grid(row=1, column=0, columnspan=6, padx=20, pady=20)
     def btn1Clicked():
         checkAnswer(questionNumber, 1)
     def btn2Clicked():
@@ -59,38 +48,49 @@ def generateQuestion(root, questionNumber):
         checkAnswer(questionNumber, 4)
 
     btn0 = Button(root, text=answerTextAll[questionNumber][0])
-    btn0.grid(row=1, padx=10, pady=10)
+    btn0.grid(row=2, padx=10, pady=10)
     btn0.config(command=btn1Clicked)
 
     btn1 = Button(root, text=answerTextAll[questionNumber][1])
-    btn1.grid(row=2, padx=10, pady=10)
+    btn1.grid(row=3, padx=10, pady=10)
     btn1.config(command=btn2Clicked)
 
     btn2 = Button(root, text=answerTextAll[questionNumber][2])
-    btn2.grid(row=3, padx=10, pady=10)
+    btn2.grid(row=4, padx=10, pady=10)
     btn2.config(command=btn3Clicked)
 
     btn3 = Button(root, text=answerTextAll[questionNumber][3])
-    btn3.grid(row=4, padx=10, pady=10)
+    btn3.grid(row=5, padx=10, pady=10)
     btn3.config(command=btn4Clicked)
 
 def checkAnswer(questionNumber, i):
+    global scores, scoresText, root, stepNumber
     if (i == answerAll[questionNumber]):
-        messagebox.showinfo('Информация', 'Правильно!')
+        #messagebox.showinfo('Информация', 'Правильно!')
+        scores = scores + 1
+        scoresText = Label(root, text='Ваши очки: ' + str(scores))
+        scoresText.grid(row=0, column=6, padx=30, pady=10)
+        if (messagebox.showinfo('Test', 'Test')): destroyAll()
     else:
-        messagebox.showerror('Ошибка', 'Ваш ответ неверный')
+        if messagebox.showerror('Test', 'Test'): destroyAll()
 
 #for i, word in enumerate(questionAll):
 #    generateQuestion(root, i)
 generateQuestion(root, 0)
 stepNumber = 0
 def destroyAll():
-    global stepNumber
-    global root
-    root.destroy()
+    global btn0, btn1, btn2, btn3, questionText, root, stepNumber, questionAll, scores, scoresText
+    questionText.destroy()
+    scoresText.destroy()
+    btn0.destroy()
+    btn1.destroy()
+    btn2.destroy()
+    btn3.destroy()
     stepNumber = stepNumber + 1
-    generateQuestion(root, stepNumber)
-btn_next = Button(root, text='Следующий вопрос')
-btn_next.grid(padx=20, pady=20, command=destroyAll())
+    if (stepNumber > len(questionAll)-1):
+        if (messagebox.showinfo('Тест закончен', 'Ваши очки: '+str(scores))):
+            root.quit()
+    else:
+        generateQuestion(root, stepNumber)
 
 root.mainloop()
